@@ -18,6 +18,10 @@
   body {
     font-family: 'DM Sans', system-ui, sans-serif;
   }
+  /* Reservar espacio desde el inicio para evitar saltos de layout */
+  main {
+    min-height: 100%;
+  }
 }
 
 /* ===== Animations ===== */
@@ -213,27 +217,23 @@
 .animate-border-glow { animation: border-glow 3s ease-in-out infinite; }
 .animate-explorar-bounce { animation: explorar-bounce 2s ease-in-out infinite; }
 
-/* ===== Scroll Reveal (Observer) ===== */
+/* ===== Scroll Reveal (Observer) - solo opacity para evitar saltos de layout ===== */
 .reveal-on-scroll {
   opacity: 0;
-  transform: translateY(50px);
-  transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .reveal-on-scroll.revealed {
   opacity: 1;
-  transform: translateY(0);
 }
 
 .reveal-on-scroll.revealed .stagger-child {
   opacity: 1;
-  transform: translateY(0);
 }
 
 .stagger-child {
   opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
+  transition: opacity 0.5s ease;
 }
 
 /* ===== Section Corner Glow (4 esquinas, sin bug de clipping) ===== */

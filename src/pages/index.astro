@@ -20,6 +20,8 @@ import { siteConfig, about, projects, characteristics, heroImage, heroPhoto, abo
         <img
           src={heroImage}
           alt=""
+          width={1920}
+          height={1080}
           class="w-full h-full object-cover object-top"
           fetchpriority="high"
         />
@@ -33,6 +35,8 @@ import { siteConfig, about, projects, characteristics, heroImage, heroPhoto, abo
           id="hero-photo-img"
           src={heroPhoto}
           alt={siteConfig.name}
+          width={800}
+          height={1200}
           class="w-full h-full object-contain object-center hero-photo-parallax"
         />
       </div>
@@ -51,20 +55,20 @@ import { siteConfig, about, projects, characteristics, heroImage, heroPhoto, abo
       </div>
 
       <!-- Explorar: más abajo en desktop, animación bounce -->
-      <div id="hero-explorar" class="hidden lg:flex flex-col items-center gap-3 absolute left-1/2 -translate-x-1/2 bottom-6 explorar-indicator z-[110]">
+      <div id="hero-explorar" class="hidden lg:flex flex-col items-center gap-3 absolute left-1/2 -translate-x-1/2 bottom-2 explorar-indicator z-[110]">
         <span class="text-xs uppercase tracking-[0.3em] text-sage font-medium">Explorar</span>
         <div class="w-px h-16 bg-gradient-to-b from-sage to-transparent explorar-line"></div>
       </div>
     </section>
 
     <!-- Sobre Mí -->
-    <section id="sobre-mi" class="relative py-20 sm:py-28 md:py-36 px-4 sm:px-6 bg-stone-50 overflow-hidden section-with-separator">
+    <section id="sobre-mi" class="relative py-20 sm:py-28 md:py-36 px-4 sm:px-6 bg-stone-50 overflow-hidden section-with-separator min-h-[600px] sm:min-h-[700px] lg:min-h-[750px]">
       <div class="glow-orb bg-sage/20 w-80 h-80 -top-40 -left-40 animate-float"></div>
       <div class="max-w-6xl mx-auto relative">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-center">
           <div class="lg:col-span-5 relative reveal-on-scroll overflow-hidden">
             <div class="aspect-[3/4] overflow-hidden">
-              <img id="about-photo-img" src={aboutImage} alt={siteConfig.name} class="w-full h-full object-contain about-photo-parallax" loading="lazy" />
+              <img id="about-photo-img" src={aboutImage} alt={siteConfig.name} width={600} height={800} class="w-full h-full object-contain about-photo-parallax" loading="lazy" />
             </div>
           </div>
           <div class="lg:col-span-7">
@@ -92,7 +96,7 @@ import { siteConfig, about, projects, characteristics, heroImage, heroPhoto, abo
     </section>
 
     <!-- Mis Trabajos -->
-    <section id="trabajos" class="relative py-20 sm:py-28 md:py-36 px-4 sm:px-6 bg-white overflow-hidden section-with-separator">
+    <section id="trabajos" class="relative py-20 sm:py-28 md:py-36 px-4 sm:px-6 bg-white overflow-hidden section-with-separator min-h-[700px] sm:min-h-[800px] lg:min-h-[900px]">
       <div class="glow-orb bg-sage/15 w-72 h-72 top-1/2 -right-36 animate-float" style="animation-delay: -1s;"></div>
       <div class="max-w-6xl mx-auto relative">
         <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-4 mb-12">
@@ -113,6 +117,8 @@ import { siteConfig, about, projects, characteristics, heroImage, heroPhoto, abo
               <img
                 src={project.image}
                 alt={project.title}
+                width={600}
+                height={800}
                 class={`w-full h-full ${i === 5 ? 'object-contain' : 'object-cover'}`}
                 loading="lazy"
               />
@@ -129,7 +135,7 @@ import { siteConfig, about, projects, characteristics, heroImage, heroPhoto, abo
     </section>
 
     <!-- Características -->
-    <section id="caracteristicas" class="relative py-20 sm:py-28 md:py-36 px-4 sm:px-6 bg-stone-50 overflow-hidden section-with-separator">
+    <section id="caracteristicas" class="relative py-20 sm:py-28 md:py-36 px-4 sm:px-6 bg-stone-50 overflow-hidden section-with-separator min-h-[500px] sm:min-h-[550px]">
       <div class="section-corner-glow" aria-hidden="true"></div>
       <div class="max-w-4xl mx-auto relative">
         <h2 class="section-title font-display text-3xl sm:text-4xl md:text-5xl font-semibold text-stone-900 text-center mb-12 sm:mb-16 reveal-on-scroll tracking-wide">
@@ -150,7 +156,7 @@ import { siteConfig, about, projects, characteristics, heroImage, heroPhoto, abo
     </section>
 
     <!-- Contacto -->
-    <section id="contacto" class="relative py-20 sm:py-28 md:py-36 px-4 sm:px-6 bg-white overflow-hidden section-with-separator">
+    <section id="contacto" class="relative py-20 sm:py-28 md:py-36 px-4 sm:px-6 bg-white overflow-hidden section-with-separator min-h-[600px] sm:min-h-[650px]">
       <div class="glow-orb bg-sage/15 w-64 h-64 top-20 right-0 animate-float"></div>
       <div class="max-w-4xl mx-auto relative">
         <h2 class="section-title font-display text-4xl sm:text-5xl md:text-6xl font-semibold text-stone-900 text-center mb-12 sm:mb-16 reveal-on-scroll tracking-wide">
