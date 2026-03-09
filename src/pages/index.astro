@@ -1,0 +1,395 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Loader from "../components/Loader.astro";
+import Nav from "../components/Nav.astro";
+import { siteConfig, about, projects, characteristics, heroImage, heroPhoto, aboutImage } from "../data/portfolio";
+---
+
+<BaseLayout title={`${siteConfig.name} | Modelo Comercial & Pasarela`} preloadImages={[heroPhoto]} image={heroImage}>
+  <Loader heroPhoto={heroPhoto} />
+  <Nav />
+
+  <main id="main-content" class="page-transition">
+    <!-- Hero -->
+    <section id="hero-section" class="relative min-h-[100dvh] flex items-center justify-center pt-16 sm:pt-20 pb-8 sm:pb-12 px-4 sm:px-6 overflow-hidden">
+      <!-- Background -->
+      <div class="absolute inset-0 z-0">
+        <div class="hero-geometry" aria-hidden="true"></div>
+        <div class="glow-orb bg-sage/40 w-96 h-96 -top-48 -right-48 animate-glow-pulse"></div>
+        <div class="glow-orb bg-sage/30 w-64 h-64 bottom-1/4 -left-32 animate-float" style="animation-delay: -2s;"></div>
+        <img
+          src={heroImage}
+          alt=""
+          class="w-full h-full object-cover object-top"
+          fetchpriority="high"
+        />
+        <div class="light-ray"></div>
+        <div class="absolute inset-0 bg-gradient-to-t from-stone-50 via-stone-50/50 to-transparent"></div>
+      </div>
+
+      <!-- Photo: foco grande centrado al cargar → smooth se mueve a la derecha, parallax en desktop -->
+      <div id="photo-reveal" class="photo-focus absolute top-0 bottom-0 z-20 pointer-events-none overflow-hidden flex items-center justify-center" aria-hidden="true">
+        <img
+          id="hero-photo-img"
+          src={heroPhoto}
+          alt={siteConfig.name}
+          class="w-full h-full object-contain object-center hero-photo-parallax"
+        />
+      </div>
+
+      <!-- Texto: grande, hace wrap cuando toca la imagen (padding-right = espacio para la foto) -->
+      <div id="hero-content" class="hero-content relative z-10 w-full max-w-6xl mx-auto pr-[55%] sm:pr-[50%] lg:pr-[42%]">
+        <p class="hero-category text-sage font-medium tracking-[0.12em] sm:tracking-[0.25em] uppercase text-sm sm:text-base mb-3 sm:mb-4">
+          {siteConfig.tagline}
+        </p>
+        <h1 class="hero-title font-display text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-semibold text-stone-900 mb-4 sm:mb-5 leading-tight">
+          Constanza<br />Palacios
+        </h1>
+        <p class="hero-tagline text-base sm:text-xl lg:text-2xl text-stone-600 leading-relaxed">
+          Redefiniendo la elegancia a través del movimiento y la expresión.
+        </p>
+      </div>
+
+      <!-- Explorar: más abajo en desktop, animación bounce -->
+      <div id="hero-explorar" class="hidden lg:flex flex-col items-center gap-3 absolute left-1/2 -translate-x-1/2 bottom-6 explorar-indicator z-[110]">
+        <span class="text-xs uppercase tracking-[0.3em] text-sage font-medium">Explorar</span>
+        <div class="w-px h-16 bg-gradient-to-b from-sage to-transparent explorar-line"></div>
+      </div>
+    </section>
+
+    <!-- Sobre Mí -->
+    <section id="sobre-mi" class="relative py-20 sm:py-28 md:py-36 px-4 sm:px-6 bg-stone-50 overflow-hidden section-with-separator">
+      <div class="glow-orb bg-sage/20 w-80 h-80 -top-40 -left-40 animate-float"></div>
+      <div class="max-w-6xl mx-auto relative">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-center">
+          <div class="lg:col-span-5 relative reveal-on-scroll overflow-hidden">
+            <div class="aspect-[3/4] overflow-hidden">
+              <img id="about-photo-img" src={aboutImage} alt={siteConfig.name} class="w-full h-full object-contain about-photo-parallax" loading="lazy" />
+            </div>
+          </div>
+          <div class="lg:col-span-7">
+            <h2 class="section-title font-display text-3xl sm:text-4xl md:text-5xl font-semibold text-stone-900 mb-6 reveal-on-scroll tracking-wide">
+              {about.title}
+            </h2>
+            <div class="space-y-4 text-stone-600 leading-relaxed text-base sm:text-lg">
+              {about.bio.map((paragraph, i) => (
+                <p class="reveal-on-scroll stagger-child" style={`transition-delay: ${i * 0.1}s`}>
+                  {paragraph}
+                </p>
+              ))}
+            </div>
+            <div class="grid grid-cols-2 gap-4 mt-12">
+              {about.stats.map((stat, i) => (
+                <div class="stat-card bg-white rounded-xl p-6 border border-stone-200 shadow-card card-glow-hover reveal-on-scroll stagger-child" style={`transition-delay: ${0.3 + i * 0.1}s`} data-target={stat.value.replace('+', '')} data-suffix={stat.value.includes('+') ? '+' : ''}>
+                  <p class="text-sage font-semibold text-2xl"><span class="stat-number">0</span><span class="stat-suffix">{stat.value.includes('+') ? '+' : ''}</span></p>
+                  <p class="text-stone-500 text-sm mt-1">{stat.label}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Mis Trabajos -->
+    <section id="trabajos" class="relative py-20 sm:py-28 md:py-36 px-4 sm:px-6 bg-white overflow-hidden section-with-separator">
+      <div class="glow-orb bg-sage/15 w-72 h-72 top-1/2 -right-36 animate-float" style="animation-delay: -1s;"></div>
+      <div class="max-w-6xl mx-auto relative">
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-4 mb-12">
+          <h2 class="section-title font-display text-4xl sm:text-5xl font-semibold text-stone-900 reveal-on-scroll tracking-wide">Mis Trabajos</h2>
+          <p class="text-stone-500 max-w-sm text-sm sm:text-base reveal-on-scroll">
+            Sesiones fotográficas, pasarelas y colaboraciones con marcas y diseñadores.
+          </p>
+        </div>
+        <div class="projects-grid grid gap-4 auto-rows-[200px] sm:auto-rows-[240px] lg:auto-rows-[280px] grid-cols-2 sm:grid-cols-4">
+          <div class="projects-gap hidden sm:block" aria-hidden="true"></div>
+          {[projects[1], projects[4], projects[5], projects[0], projects[3], projects[2]].map((project, i) => (
+            <div
+              class={`project-card group relative rounded-xl overflow-hidden img-hover-zoom reveal-on-scroll flex items-center justify-center ${
+                i === 0 ? 'sm:col-span-2 sm:row-span-2' : 
+                i >= 4 ? 'sm:col-span-2' : ''
+              } ${i === 5 ? 'bg-stone-100' : ''}`}
+            >
+              <img
+                src={project.image}
+                alt={project.title}
+                class={`w-full h-full ${i === 5 ? 'object-contain' : 'object-cover'}`}
+                loading="lazy"
+              />
+              <div class="project-overlay absolute inset-0 bg-gradient-to-t from-stone-900/90 via-stone-900/20 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 flex items-end p-6">
+                <div class="project-overlay-content transform translate-y-8 group-hover:translate-y-0 transition-transform duration-500">
+                  <p class="text-sage/90 text-xs uppercase tracking-widest mb-1">{project.category}</p>
+                  <h3 class="text-white font-semibold text-lg sm:text-xl">{project.title}</h3>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Características -->
+    <section id="caracteristicas" class="relative py-20 sm:py-28 md:py-36 px-4 sm:px-6 bg-stone-50 overflow-hidden section-with-separator">
+      <div class="section-corner-glow" aria-hidden="true"></div>
+      <div class="max-w-4xl mx-auto relative">
+        <h2 class="section-title font-display text-3xl sm:text-4xl md:text-5xl font-semibold text-stone-900 text-center mb-12 sm:mb-16 reveal-on-scroll tracking-wide">
+          Mis Características
+        </h2>
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+          {characteristics.map((item, i) => (
+            <div
+              class="bg-white rounded-xl p-6 border border-stone-200 shadow-card text-center card-glow-hover reveal-on-scroll stagger-child"
+              style={`transition-delay: ${i * 0.05}s`}
+            >
+              <p class="text-stone-500 text-xs uppercase tracking-widest mb-2">{item.label}</p>
+              <p class="text-sage font-semibold text-lg">{item.value}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Contacto -->
+    <section id="contacto" class="relative py-20 sm:py-28 md:py-36 px-4 sm:px-6 bg-white overflow-hidden section-with-separator">
+      <div class="glow-orb bg-sage/15 w-64 h-64 top-20 right-0 animate-float"></div>
+      <div class="max-w-4xl mx-auto relative">
+        <h2 class="section-title font-display text-4xl sm:text-5xl md:text-6xl font-semibold text-stone-900 text-center mb-12 sm:mb-16 reveal-on-scroll tracking-wide">
+          Contáctame
+        </h2>
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 bg-stone-50 p-8 sm:p-12 rounded-2xl border border-stone-100 card-glow-hover reveal-on-scroll">
+          <div>
+            <h3 class="text-xl font-semibold text-sage mb-6 flex items-center gap-2">
+              <i class="ph ph-share-network ph-icon text-2xl"></i>
+              Redes Sociales
+            </h3>
+            <div class="space-y-4">
+              <a
+                href={`https://instagram.com/${siteConfig.instagram}`}
+                target="_blank"
+                rel="noopener"
+                class="flex items-center gap-3 text-stone-600 hover:text-sage transition-all duration-300 hover:translate-x-1 group"
+              >
+                <i class="ph ph-instagram-logo ph-icon text-2xl text-sage group-hover:scale-110 transition-transform"></i>
+                <span>@{siteConfig.instagram}</span>
+              </a>
+              <a
+                href={`mailto:${siteConfig.email}`}
+                class="flex items-center gap-3 text-stone-600 hover:text-sage transition-all duration-300 hover:translate-x-1 group break-all"
+              >
+                <i class="ph ph-envelope-simple ph-icon text-2xl text-sage group-hover:scale-110 transition-transform"></i>
+                <span>{siteConfig.email}</span>
+              </a>
+              <a
+                href={`tel:${siteConfig.phone.replace(/\s/g, '')}`}
+                class="flex items-center gap-3 text-stone-600 hover:text-sage transition-all duration-300 hover:translate-x-1 group"
+              >
+                <i class="ph ph-phone ph-icon text-2xl text-sage group-hover:scale-110 transition-transform"></i>
+                <span>{siteConfig.phone}</span>
+              </a>
+            </div>
+            <div class="mt-10 flex gap-4">
+              <a href={`https://instagram.com/${siteConfig.instagram}`} target="_blank" rel="noopener" class="social-btn w-12 h-12 rounded-full border-2 border-stone-200 flex items-center justify-center hover:bg-sage hover:border-sage hover:text-white hover:scale-110 hover:shadow-lg transition-all duration-300" aria-label="Instagram">
+                <i class="ph ph-instagram-logo ph-icon text-xl"></i>
+              </a>
+              <a href={`mailto:${siteConfig.email}`} class="social-btn w-12 h-12 rounded-full border-2 border-stone-200 flex items-center justify-center hover:bg-sage hover:border-sage hover:text-white hover:scale-110 hover:shadow-lg transition-all duration-300" aria-label="Email">
+                <i class="ph ph-envelope-simple ph-icon text-xl"></i>
+              </a>
+              <a href={`tel:${siteConfig.phone.replace(/\s/g, '')}`} class="social-btn w-12 h-12 rounded-full border-2 border-stone-200 flex items-center justify-center hover:bg-sage hover:border-sage hover:text-white hover:scale-110 hover:shadow-lg transition-all duration-300" aria-label="Teléfono">
+                <i class="ph ph-phone ph-icon text-xl"></i>
+              </a>
+            </div>
+          </div>
+          <form class="space-y-4" id="contact-form">
+            <input
+              type="text"
+              placeholder="Tu nombre"
+              class="form-input w-full px-4 py-3 rounded-xl border-2 border-stone-200 bg-white focus:border-sage focus:ring-2 focus:ring-sage/20 outline-none transition-all duration-300"
+              required
+            />
+            <input
+              type="email"
+              placeholder="Tu email"
+              class="form-input w-full px-4 py-3 rounded-xl border-2 border-stone-200 bg-white focus:border-sage focus:ring-2 focus:ring-sage/20 outline-none transition-all duration-300"
+              required
+            />
+            <textarea
+              placeholder="Cuéntame sobre tu proyecto"
+              rows="4"
+              class="form-input w-full px-4 py-3 rounded-xl border-2 border-stone-200 bg-white focus:border-sage focus:ring-2 focus:ring-sage/20 outline-none transition-all duration-300 resize-none"
+              required
+            ></textarea>
+            <button
+              type="submit"
+              class="w-full bg-sage hover:bg-sage-dark text-white py-4 rounded-xl font-semibold uppercase tracking-wider transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] btn-shimmer"
+            >
+              Enviar mensaje
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="py-8 border-t border-stone-200 px-4 sm:px-6">
+    <div class="max-w-6xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4">
+      <p class="text-stone-500 text-sm">© 2026 {siteConfig.name}. Todos los derechos reservados.</p>
+      <a href={`https://instagram.com/${siteConfig.instagram}`} target="_blank" rel="noopener" class="flex items-center gap-2 text-stone-500 hover:text-sage transition-colors text-sm">
+        <i class="ph ph-instagram-logo ph-icon"></i>
+        Instagram
+      </a>
+    </div>
+  </footer>
+
+  <script>
+    // 1) Foto como foco grande centrado → 2.5s después smooth achica y va a la derecha
+    // 2) Texto aparece durante la transición
+    window.addEventListener('loader-complete', () => {
+      document.getElementById('main-content')?.classList.add('page-visible');
+      const photo = document.getElementById('photo-reveal');
+      const heroContent = document.getElementById('hero-content');
+      const heroExplorar = document.getElementById('hero-explorar');
+      const isMobile = window.innerWidth < 1024;
+      if (photo) {
+        photo.classList.add('visible');
+        // Breve foco, luego transición smooth
+        setTimeout(() => photo.classList.add('revealed'), 800);
+        // Texto aparece durante la transición
+        const heroDelay = isMobile ? 1200 : 1500;
+        setTimeout(() => {
+          heroContent?.classList.add('hero-revealed');
+          heroExplorar?.classList.add('hero-revealed');
+        }, heroDelay);
+      }
+    });
+
+    // Scroll reveal observer
+    const revealElements = document.querySelectorAll('.reveal-on-scroll');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('revealed');
+          entry.target.querySelectorAll('.stagger-child').forEach((child, i) => {
+            (child as HTMLElement).style.transitionDelay = `${i * 0.08}s`;
+          });
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -80px 0px' });
+    revealElements.forEach(el => revealObserver.observe(el));
+
+    // Parallax hero photo (más agresivo: más a la izq en foco, más movimiento al scroll)
+    const heroPhotoImg = document.getElementById('hero-photo-img');
+    const heroSection = document.getElementById('hero-section');
+    const aboutPhotoImg = document.getElementById('about-photo-img');
+    if (window.innerWidth >= 1024) {
+      window.addEventListener('scroll', () => {
+        const scrolled = window.scrollY;
+        if (heroPhotoImg && heroSection) {
+          const heroHeight = heroSection.clientHeight || 800;
+          const inHero = scrolled < heroHeight * 0.8;
+          const rate = inHero ? scrolled * 0.25 : scrolled * 0.35;
+          heroPhotoImg.style.transform = `translateX(${rate}px)`;
+        }
+        if (aboutPhotoImg) {
+          const sobreMi = document.getElementById('sobre-mi');
+          if (sobreMi) {
+          const rect = sobreMi.getBoundingClientRect();
+          const sectionH = sobreMi.offsetHeight;
+          const maxLeft = -500;
+          let tx = maxLeft;
+          if (rect.top > 500) {
+            tx = maxLeft;
+          } else if (rect.top > 0) {
+            tx = maxLeft + (maxLeft * -1) * (1 - rect.top / 500);
+          } else if (rect.top > -sectionH + 200) {
+            tx = 0;
+          } else {
+            const exitProgress = Math.min(1, (-rect.top - sectionH + 200) / 300);
+            tx = maxLeft * exitProgress;
+          }
+          aboutPhotoImg.style.transform = `translateX(${tx}px)`;
+          }
+        }
+      }, { passive: true });
+    }
+
+    // Números animados (contador al entrar en vista)
+    const statCards = document.querySelectorAll('.stat-card');
+    const statObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        const card = entry.target;
+        const numEl = card.querySelector('.stat-number');
+        const target = parseInt(card.getAttribute('data-target') || '0', 10);
+        const suffix = card.getAttribute('data-suffix') || '';
+        if (!numEl || isNaN(target)) return;
+        const duration = 1200;
+        const start = performance.now();
+        const easeOut = (t: number) => 1 - Math.pow(1 - t, 3);
+        const animate = (now: number) => {
+          const elapsed = now - start;
+          const progress = Math.min(elapsed / duration, 1);
+          const val = Math.floor(easeOut(progress) * target);
+          (numEl as HTMLElement).textContent = String(val);
+          if (progress < 1) requestAnimationFrame(animate);
+          else (numEl as HTMLElement).textContent = String(target);
+        };
+        requestAnimationFrame(animate);
+        statObserver.unobserve(card);
+      });
+    }, { threshold: 0.3 });
+    statCards.forEach(el => statObserver.observe(el));
+
+    // Mobile: mostrar descripción cuando la foto está en foco (viewport)
+    const projectCards = document.querySelectorAll('.project-card');
+    const projectFocusObserver = new IntersectionObserver((entries) => {
+      if (!window.matchMedia('(hover: none)').matches) return; // solo en touch/mobile
+      entries.forEach((entry) => {
+        entry.target.classList.toggle('project-focus', entry.isIntersecting);
+      });
+    }, { threshold: 0.3, rootMargin: '0px' });
+    projectCards.forEach((el) => projectFocusObserver.observe(el));
+
+    // Smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        const href = this.getAttribute('href');
+        if (href === '#') return;
+        e.preventDefault();
+        document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' });
+      });
+    });
+
+    // Form: validación visual (focus, invalid)
+    document.querySelectorAll('.form-input').forEach((input) => {
+      input.addEventListener('focus', () => {
+        input.classList.remove('border-red-300');
+        input.classList.add('border-sage');
+      });
+      input.addEventListener('blur', () => {
+        input.classList.remove('border-sage');
+        if ((input as HTMLInputElement).value && !(input as HTMLInputElement).validity.valid && (input as HTMLInputElement).type === 'email') {
+          input.classList.add('border-red-300');
+        }
+      });
+      input.addEventListener('input', () => {
+        if ((input as HTMLInputElement).validity.valid) input.classList.remove('border-red-300');
+      });
+    });
+
+    // Form
+    document.getElementById('contact-form')?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const btn = (e.target as HTMLFormElement).querySelector('button[type="submit"]');
+      const text = btn?.textContent;
+      if (btn) {
+        btn.textContent = 'Enviado ✓';
+        btn.disabled = true;
+        setTimeout(() => {
+          btn.textContent = text;
+          btn.disabled = false;
+          (e.target as HTMLFormElement).reset();
+        }, 2000);
+      }
+    });
+  </script>
+</BaseLayout>
